@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Player</title>
-<style>
-body{margin:0;background:#000}
-video{width:100%;height:100vh;object-fit:contain;background:#000}
-#title{position:absolute;top:10px;left:10px;color:#fff;font-size:14px}
-</style>
-</head>
-
-<body>
-
-<p id="title"></p>
-
-<video id="player" controls playsinline controlsList="nodownload">
-  <source src="" type="video/mp4">
-</video>
-
 <script>
 const JSON_URL = "videos.json";
 const DIRECT_LINK = "https://www.effectivecpmnetwork.com/g05tnv06z?key=308d94d906e2fb2f2e1134eb3122b5ae";
@@ -34,16 +13,16 @@ fetch(JSON_URL)
 .then(data => {
 
   const vids = data.videos;
-  const name = decodeURIComponent(location.hash.replace("#/", ""));
+  const id = decodeURIComponent(location.hash.replace("#/", ""));
 
-  let selected = vids.find(v => v.name === name);
+  let selected = vids.find(v => v.id === id);
 
   if (!selected) {
     selected = vids[0];
   }
 
   video.src = selected.cdn;
-  title.innerText = selected.name;
+  title.innerText = selected.id;
 
 });
 
@@ -61,6 +40,3 @@ video.addEventListener("timeupdate", () => {
   }
 });
 </script>
-
-</body>
-</html>
