@@ -1,42 +1,79 @@
-<script>
-const JSON_URL = "videos.json";
-const DIRECT_LINK = "https://www.effectivecpmnetwork.com/g05tnv06z?key=308d94d906e2fb2f2e1134eb3122b5ae";
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player</title>
 
-const video = document.getElementById("player");
-const title = document.getElementById("title");
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+    }
 
-let clicked = false;
-let redirected = false;
+    video {
+      width: 100%;
+      height: 100vh;
+      object-fit: contain;
+      background: #000;
+    }
 
-fetch(JSON_URL)
-.then(res => res.json())
-.then(data => {
+    #title {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      font-size: 14px;
+    }
+  </style>
+</head>
 
-  const vids = data.videos;
-  const id = decodeURIComponent(location.hash.replace("#/", ""));
+<body>
 
-  let selected = vids.find(v => v.id === id);
+  <p id="title"></p>
 
-  if (!selected) {
-    selected = vids[0];
-  }
+  <video id="player" controls playsinline controlsList="nodownload"></video>
 
-  video.src = selected.cdn;
-  title.innerText = selected.id;
+  <script>
+    const JSON_URL = "videos.json";
+    const DIRECT_LINK = "https://www.effectivecpmnetwork.com/g05tnv06z?key=308d94d906e2fb2f2e1134eb3122b5ae";
 
-});
+    const video = document.getElementById("player");
+    const title = document.getElementById("title");
 
-video.addEventListener("click", () => {
-  if (!clicked) {
-    clicked = true;
-    window.location.href = DIRECT_LINK;
-  }
-}, { once: true });
+    let clicked = false;
+    let redirected = false;
 
-video.addEventListener("timeupdate", () => {
-  if (!redirected && video.currentTime >= 30){
-    redirected = true;
-    window.location.href = DIRECT_LINK;
-  }
-});
-</script>
+    fetch(JSON_URL)
+      .then(res => res.json())
+      .then(data => {
+        const vids = data.videos;
+        const id = decodeURIComponent(location.hash.replace("#/", ""));
+
+        let selected = vids.find(v => v.id === id);
+
+        if (!selected) {
+          selected = vids[0];
+        }
+
+        video.src = selected.cdn;
+        title.innerText = selected.id;
+      });
+
+    video.addEventListener("click", () => {
+      if (!clicked) {
+        clicked = true;
+        window.location.href = DIRECT_LINK;
+      }
+    }, { once: true });
+
+    video.addEventListener("timeupdate", () => {
+      if (!redirected && video.currentTime >= 30) {
+        redirected = true;
+        window.location.href = DIRECT_LINK;
+      }
+    });
+  </script>
+
+</body>
+</html>
