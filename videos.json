@@ -1,1 +1,16 @@
-
+{
+  "videos": [
+    {
+      "id": "J1Hi.mp4",
+      "cdn": "https://cdn2.slicedrive.com/U1bA427D1.mp4"
+    },
+    {
+      "id": "J2Hi.mp4",
+      "cdn": "https://cdn2.slicedrive.com/UPMrCaiB1.mp4"
+    },
+    {
+      "id": "J3Hi.mp4",
+      "cdn": "https://cdn2.slicedrive.com/bFLtARP31.mp4"
+    }
+  ]
+}
