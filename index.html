@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="id"><head>
+<!DOCTYPE html>
+<html lang="id">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Player</title>
@@ -9,9 +11,16 @@
       background: #000;
     }
 
-    video {
+    .player-container {
+      position: relative;
       width: 100%;
       height: 100vh;
+      background: #000;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       background: #000;
     }
@@ -22,12 +31,80 @@
       left: 10px;
       color: #fff;
       font-size: 14px;
+      z-index: 5;
+    }
+
+    /* IKLAN KECIL */
+    #adBanner {
+      position: absolute;
+      bottom: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 420px;
+      min-height: 45px;
+      background: rgba(20, 20, 20, 0.92);
+      border-radius: 6px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 6px 35px 6px 10px;
+    }
+
+    #adBanner a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      text-align: center;
+      width: 100%;
+    }
+
+    #closeAd {
+      position: absolute;
+      right: 7px;
+      top: 5px;
+      width: 22px;
+      height: 22px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      line-height: 20px;
+      padding: 0;
+      cursor: pointer;
     }
   </style>
-</head><body>
+</head>
 
-  <p id="title"></p>
-  <video id="player" controls playsinline controlsList="nodownload"></video>
+<body>
+
+  <div class="player-container">
+
+    <p id="title"></p>
+
+    <video
+      id="player"
+      controls
+      playsinline
+      controlsList="nodownload">
+    </video>
+
+    <!-- IKLAN KECIL -->
+    <div id="adBanner">
+      <a
+        href="https://cloakroomreveal.com/gdtm6hqr3?key=a371a6927cc80fc348a4344632c1f80e"
+        target="_blank"
+        rel="noopener noreferrer">
+        Advertisement
+      </a>
+
+      <button id="closeAd">×</button>
+    </div>
+
+  </div>
 
   <script>
     const JSON_URL = "videos.json";
@@ -35,6 +112,8 @@
 
     const video = document.getElementById("player");
     const title = document.getElementById("title");
+    const adBanner = document.getElementById("adBanner");
+    const closeAd = document.getElementById("closeAd");
 
     let clicked = false;
     let wrapper15 = false;
@@ -79,5 +158,12 @@
 
     });
 
+    // TUTUP IKLAN
+    closeAd.addEventListener("click", (e) => {
+      e.stopPropagation();
+      adBanner.style.display = "none";
+    });
   </script>
-</body></html>
+
+</body>
+</html>
