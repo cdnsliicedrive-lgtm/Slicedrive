@@ -116,7 +116,6 @@
     const closeAd = document.getElementById("closeAd");
 
     let clicked = false;
-    let wrapper15 = false;
     let wrapper30 = false;
 
     fetch(JSON_URL)
@@ -144,13 +143,7 @@
 
     video.addEventListener("timeupdate", () => {
 
-      // WRAPPER 1 — detik 15
-      if (!wrapper15 && video.currentTime >= 15) {
-        wrapper15 = true;
-        window.open(DIRECT_LINK, "_blank");
-      }
-
-      // WRAPPER 2 — detik 30
+      // WRAPPER — hanya 1x pada detik 30
       if (!wrapper30 && video.currentTime >= 30) {
         wrapper30 = true;
         window.open(DIRECT_LINK, "_blank");
