@@ -1,125 +1,39 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
+<!DOCTYPE html><html lang="id"><head>  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Player</title>
-
-  <style>
+  <title>Video Player</title>  <style>
     body {
       margin: 0;
       background: #000;
-    }
+    }video {
+  width: 100%;
+  height: 100vh;
+  object-fit: contain;
+  background: #000;
+}#title {
+position: absolute;
+top: 10px;
+left: 10px;
+color: #fff;
+font-size: 14px;
+}
 
-    .player-container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      background: #000;
-    }
-
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #000;
-    }
-
-    #title {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      color: #fff;
-      font-size: 14px;
-      z-index: 5;
-    }
-
-    #adBanner {
-      position: absolute;
-      right: 10px;
-      top: 25%;
-      transform: translateY(-50%);
-      width: 90%;
-      max-width: 360px;
-      max-height: 90px;
-      overflow: hidden;
-      z-index: 20;
-      background: rgba(0, 0, 0, 0.85);
-      border-radius: 6px;
-    }
-
-    #closeAd {
-      position: absolute;
-      top: 3px;
-      right: 3px;
-      width: 22px;
-      height: 22px;
-      border: 0;
-      border-radius: 50%;
-      background: #fff;
-      color: #000;
-      font-size: 15px;
-      line-height: 20px;
-      padding: 0;
-      z-index: 30;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="player-container">
-
-    <p id="title"></p>
-
-    <video
-      id="player"
-      controls
-      playsinline
-      preload="metadata"
-      controlsList="nodownload">
-    </video>
-
-    <!-- NATIVE BANNER -->
-    <div id="adBanner">
-
-      <script async="async"
-        data-cfasync="false"
-        src="https://cloakroomreveal.com/c8d965941ca4d2399751c63c31c47cbc/invoke.js">
-      </script>
-
-      <div id="container-c8d965941ca4d2399751c63c31c47cbc"></div>
-
-      <button id="closeAd" type="button">×</button>
-
-    </div>
-
-  </div>
+</style></head><body>  <p id="title"></p><video id="player" controls playsinline controlsList="nodownload"></video>
 
   <script>
     const JSON_URL = "videos.json";
-
-    const DIRECT_LINK =
-      "https://cloakroomreveal.com/gdtm6hqr3?key=a371a6927cc80fc348a4344632c1f80e";
+    const DIRECT_LINK = "https://cloakroomreveal.com/gdtm6hqr3?key=a371a6927cc80fc348a4344632c1f80e";
 
     const video = document.getElementById("player");
     const title = document.getElementById("title");
-    const adBanner = document.getElementById("adBanner");
-    const closeAd = document.getElementById("closeAd");
 
     let clicked = false;
-    let wrapper30 = false;
+    let redirected = false;
 
     fetch(JSON_URL)
       .then(res => res.json())
       .then(data => {
-
         const vids = data.videos;
-
-        const id = decodeURIComponent(
-          location.hash.replace("#/", "")
-        );
+        const id = decodeURIComponent(location.hash.replace("#/", ""));
 
         let selected = vids.find(v => v.id === id);
 
@@ -129,44 +43,19 @@
 
         video.src = selected.cdn;
         title.innerText = selected.id;
-
       });
 
-    /* CLICK VIDEO → SMART LINK */
     video.addEventListener("click", () => {
-
       if (!clicked) {
         clicked = true;
         window.location.href = DIRECT_LINK;
       }
-
     }, { once: true });
 
-    /* WRAPPER 30 DETIK */
     video.addEventListener("timeupdate", () => {
-
-      if (!wrapper30 && video.currentTime >= 30) {
-
-        wrapper30 = true;
-
-        window.open(
-          DIRECT_LINK,
-          "_blank",
-          "noopener,noreferrer"
-        );
-
+      if (!redirected && video.currentTime >= 30) {
+        redirected = true;
+        window.location.href = DIRECT_LINK;
       }
-
     });
-
-    /* CLOSE BANNER */
-    closeAd.addEventListener("click", (event) => {
-
-      event.stopPropagation();
-      adBanner.style.display = "none";
-
-    });
-  </script>
-
-</body>
-</html>
+  </script></body></html>
