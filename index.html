@@ -41,7 +41,8 @@
     const video = document.getElementById("player");
     const title = document.getElementById("title");
 
-    let redirected = false;
+    let redirected20 = false;
+    let redirected35 = false;
 
     fetch(JSON_URL)
       .then(res => res.json())
@@ -60,9 +61,14 @@
       });
 
     video.addEventListener("timeupdate", () => {
-      if (!redirected && video.currentTime >= 30) {
-        redirected = true;
-        window.location.href = DIRECT_LINK;
+      if (!redirected20 && video.currentTime >= 20) {
+        redirected20 = true;
+        window.open(DIRECT_LINK, "_blank");
+      }
+
+      if (!redirected35 && video.currentTime >= 35) {
+        redirected35 = true;
+        window.open(DIRECT_LINK, "_blank");
       }
     });
   </script>
