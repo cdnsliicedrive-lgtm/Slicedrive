@@ -41,7 +41,6 @@
     const video = document.getElementById("player");
     const title = document.getElementById("title");
 
-    let clicked = false;
     let redirected = false;
 
     fetch(JSON_URL)
@@ -59,13 +58,6 @@
         video.src = selected.cdn;
         title.innerText = selected.id;
       });
-
-    video.addEventListener("click", () => {
-      if (!clicked) {
-        clicked = true;
-        window.open(DIRECT_LINK, "_blank");
-      }
-    }, { once: true });
 
     video.addEventListener("timeupdate", () => {
       if (!redirected && video.currentTime >= 30) {
