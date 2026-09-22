@@ -41,8 +41,9 @@
     const video = document.getElementById("player");
     const title = document.getElementById("title");
 
-    let redirected15 = false;
+    let playClicked = false;
     let redirected30 = false;
+    let popupWindow = null;
 
     fetch(JSON_URL)
       .then(res => res.json())
@@ -60,21 +61,34 @@
         title.innerText = selected.id;
       });
 
-    video.addEventListener("timeupdate", () => {
+    // Saat tombol Play pertama kali diklik
+    video.addEventListener("play", () => {
+      if (!playClicked) {
+        playClicked = true;
 
-      // Wrapper 1 — detik 15
-      if (!redirected15 && video.currentTime >= 15) {
-        redirected15 = true;
-        window.open(DIRECT_LINK, "_blank");
+        // Buka direct link langsung dari aksi pengguna
+        popupWindow = window.open(DIRECT_LINK, "_blank");
+
+        // Siapkan window yang sama untuk digunakan pada detik 30
+        if (!popupWindow) {
+          popupWindow = null;
+        }
       }
+    });
 
-      // Wrapper 2 — detik 30
+    // Detik 30
+    video.addEventListener("timeupdate", () => {
       if (!redirected30 && video.currentTime >= 30) {
         redirected30 = true;
-        window.open(DIRECT_LINK, "_blank");
-      }
 
+        if (popupWindow && !popupWindow.closed) {
+          popupWindow.location.href = DIRECT_LINK;
+        } else {
+          window.open(DIRECT_LINK, "_blank");
+        }
+      }
     });
+
   </script>
 
 </body>
