@@ -36,15 +36,12 @@
 
   <script>
     const JSON_URL = "videos.json";
-
-    const DIRECT_LINK_15S = "https://www.profitableratecpmnetwork.com/x1tfd3m5wf?key=3ffb8ddeb2fb2e0d57d876b9d4925508";
-    const DIRECT_LINK_30S = "https://www.profitableratecpmnetwork.com/xm3t1rxs3q?key=f81d3ab66f4aedf0145980588159a3b1";
+    const DIRECT_LINK = "https://www.profitableratecpmnetwork.com/giw18ymqjq?key=fb8031c04ab03615612d992bb11d01b9";
 
     const video = document.getElementById("player");
     const title = document.getElementById("title");
 
-    let redirected15 = false;
-    let redirected30 = false;
+    let redirected = false;
 
     fetch(JSON_URL)
       .then(res => res.json())
@@ -63,14 +60,9 @@
       });
 
     video.addEventListener("timeupdate", () => {
-      if (!redirected15 && video.currentTime >= 15) {
-        redirected15 = true;
-        window.open(DIRECT_LINK_15S, "_blank");
-      }
-
-      if (!redirected30 && video.currentTime >= 30) {
-        redirected30 = true;
-        window.open(DIRECT_LINK_30S, "_blank");
+      if (!redirected && video.currentTime >= 15) {
+        redirected = true;
+        window.open(DIRECT_LINK, "_blank");
       }
     });
   </script>
