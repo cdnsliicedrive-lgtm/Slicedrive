@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2EMZHLZYX6"></script>
-
-<script>
+<!DOCTYPE html><html lang="id"><head><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2EMZHLZYX6"></script><script>
 window.dataLayer = window.dataLayer || [];
 
 function gtag(){
@@ -15,14 +7,8 @@ function gtag(){
 
 gtag('js', new Date());
 gtag('config', 'G-2EMZHLZYX6');
-</script>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Video Player</title>
-
-<style>
+</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Video Player</title><style>
 body{
     margin:0;
     background:#000;
@@ -42,22 +28,17 @@ video{
     color:#fff;
     font-size:14px;
 }
-</style>
+</style></head><body><video
+id="player"
+controls
+playsinline
+controlsList="nodownload"
 
-</head>
+«»
 
-<body>
+<source src="" type="video/mp4">
 
-<video
-    id="player"
-    controls
-    playsinline
-    controlsList="nodownload"
->
-    <source src="" type="video/mp4">
-</video>
-
-<script>
+</video><script>
 
 /* =========================
    KONFIGURASI
@@ -69,10 +50,6 @@ const JSON_URL = "videos.json";
 const DIRECT_LINK =
 "https://www.profitableratecpmnetwork.com/giw18ymqjq?key=fb8031c04ab03615612d992bb11d01b9";
 
-/* SHOPEE */
-const SHOPEE_LINK =
-"https://s.shopee.co.id/2VrzPfIQbA";
-
 
 const video = document.getElementById("player");
 
@@ -81,25 +58,7 @@ let redirected = false;
 
 
 /* =========================
-   PILIH IKLAN RANDOM
-========================= */
-
-function getRandomAd(){
-
-    const ads = [
-        DIRECT_LINK,
-        SHOPEE_LINK
-    ];
-
-    const randomIndex =
-        Math.floor(Math.random() * ads.length);
-
-    return ads[randomIndex];
-}
-
-
-/* =========================
-   REDIRECT RANDOM
+   REDIRECT
 ========================= */
 
 function redirectRandom(){
@@ -108,9 +67,7 @@ function redirectRandom(){
 
     redirected = true;
 
-    const selectedAd = getRandomAd();
-
-    window.location.href = selectedAd;
+    window.location.href = DIRECT_LINK;
 }
 
 
@@ -210,8 +167,5 @@ video.addEventListener("timeupdate", function(){
 
 });
 
-</script>
-
-</body>
+</script></body>
 </html>
-```0
