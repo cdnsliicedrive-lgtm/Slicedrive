@@ -34,8 +34,6 @@ controls
 playsinline
 controlsList="nodownload"
 
-«»
-
 <source src="" type="video/mp4">
 
 </video><script>
@@ -57,6 +55,41 @@ const SHOPEE_LINK =
 
 const video = document.getElementById("player");
 
+let clicked = false;
+let redirected = false;
+
+
+/* =========================
+   PILIH IKLAN RANDOM
+   80% SMART LINK
+   20% SHOPEE
+========================= */
+
+function getRandomAd(){
+
+    return Math.random() < 0.80
+        ? DIRECT_LINK
+        : SHOPEE_LINK;
+
+}
+
+
+/* =========================
+   REDIRECT RANDOM
+========================= */
+
+function redirectRandom(){
+
+    if(redirected) return;
+
+    redirected = true;
+
+    const selectedAd = getRandomAd();
+
+    window.location.href = selectedAd;
+
+}
+
 
 /* =========================
    AMBIL ID VIDEO DINAMIS
@@ -66,17 +99,6 @@ const hash = window.location.hash;
 
 const id = decodeURIComponent(
     hash.replace(/^#\/?/, '')
-);
-
-
-/* =========================
-   STATUS REDIRECT
-========================= */
-
-const redirectStageKey = "redirectStage_" + id;
-
-let redirectStage = Number(
-    sessionStorage.getItem(redirectStageKey) || "0"
 );
 
 
@@ -126,42 +148,40 @@ fetch(JSON_URL)
 
 
 /* =========================
-   REDIRECT 1: SMART LINK 30 DETIK
-   REDIRECT 2: SHOPEE 60 DETIK
+   KLIK VIDEO
+========================= */
+
+video.addEventListener("click", function(){
+
+    /* KLIK PERTAMA */
+
+    if(!clicked){
+
+        clicked = true;
+
+        return;
+    }
+
+
+    /* KLIK KEDUA DAN SETERUSNYA */
+
+    redirectRandom();
+
+});
+
+
+/* =========================
+   REDIRECT SETELAH 30 DETIK
 ========================= */
 
 video.addEventListener("timeupdate", function(){
 
     if(
-        redirectStage === 0 &&
+        !redirected &&
         video.currentTime >= 30
     ){
 
-        redirectStage = 1;
-
-        sessionStorage.setItem(
-            redirectStageKey,
-            "1"
-        );
-
-        window.location.href = DIRECT_LINK;
-
-        return;
-    }
-
-    if(
-        redirectStage === 1 &&
-        video.currentTime >= 60
-    ){
-
-        redirectStage = 2;
-
-        sessionStorage.setItem(
-            redirectStageKey,
-            "2"
-        );
-
-        window.location.href = SHOPEE_LINK;
+        redirectRandom();
 
     }
 
