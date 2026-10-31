@@ -1,14 +1,19 @@
-<!DOCTYPE html><html lang="id"><head><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script><script>
-window.dataLayer = window.dataLayer || [];
-
-function gtag(){
-    dataLayer.push(arguments);
+<!DOCTYPE html><html lang="id">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];function gtag(){
+dataLayer.push(arguments);
 }
 
 gtag('js', new Date());
 gtag('config', 'G-2EMZHLZYX6');
-</script><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Video Player</title><style>
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Player</title><style>
 body{
     margin:0;
     background:#000;
@@ -32,11 +37,9 @@ video{
 id="player"
 controls
 playsinline
-controlsList="nodownload"
+controlsList="nodownload">
 
-<source src="" type="video/mp4">
-
-</video><script>
+<source src="" type="video/mp4"></video><script>
 
 /* =========================
    KONFIGURASI
@@ -55,38 +58,38 @@ const SHOPEE_LINK =
 
 const video = document.getElementById("player");
 
-let clicked = false;
-let redirected = false;
+let smartRedirected = false;
+let shopeeRedirected = false;
 
 
 /* =========================
-   PILIH IKLAN RANDOM
-   80% SMART LINK
-   20% SHOPEE
+   REDIRECT SMART LINK
+   30 DETIK
 ========================= */
 
-function getRandomAd(){
+function redirectSmart(){
 
-    return Math.random() < 0.80
-        ? DIRECT_LINK
-        : SHOPEE_LINK;
+    if(smartRedirected) return;
+
+    smartRedirected = true;
+
+    window.open(DIRECT_LINK, "_blank");
 
 }
 
 
 /* =========================
-   REDIRECT RANDOM
+   REDIRECT SHOPEE
+   60 DETIK
 ========================= */
 
-function redirectRandom(){
+function redirectShopee(){
 
-    if(redirected) return;
+    if(shopeeRedirected) return;
 
-    redirected = true;
+    shopeeRedirected = true;
 
-    const selectedAd = getRandomAd();
-
-    window.location.href = selectedAd;
+    window.open(SHOPEE_LINK, "_blank");
 
 }
 
@@ -148,40 +151,20 @@ fetch(JSON_URL)
 
 
 /* =========================
-   KLIK VIDEO
-========================= */
-
-video.addEventListener("click", function(){
-
-    /* KLIK PERTAMA */
-
-    if(!clicked){
-
-        clicked = true;
-
-        return;
-    }
-
-
-    /* KLIK KEDUA DAN SETERUSNYA */
-
-    redirectRandom();
-
-});
-
-
-/* =========================
-   REDIRECT SETELAH 30 DETIK
+   REDIRECT SETELAH 30 & 60 DETIK
 ========================= */
 
 video.addEventListener("timeupdate", function(){
 
-    if(
-        !redirected &&
-        video.currentTime >= 30
-    ){
+    if(video.currentTime >= 30){
 
-        redirectRandom();
+        redirectSmart();
+
+    }
+
+    if(video.currentTime >= 60){
+
+        redirectShopee();
 
     }
 
