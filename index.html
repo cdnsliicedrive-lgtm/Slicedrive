@@ -47,9 +47,13 @@ controlsList="nodownload">
 
 const JSON_URL = "videos.json";
 
-/* ADSTERRA SMART LINK */
+/* SMART LINK ADSTERRA */
 const DIRECT_LINK =
 "https://auctionr.org/4/fb8031c04ab03615612d992bb11d01b9";
+
+/* SHOPEE */
+const SHOPEE_LINK =
+"https://s.shopee.co.id/7AeWeeLqUU";
 
 
 const video = document.getElementById("player");
@@ -59,16 +63,33 @@ let redirected = false;
 
 
 /* =========================
-   REDIRECT SMART LINK
+   PILIH IKLAN RANDOM
+   90% SMART LINK
+   10% SHOPEE
 ========================= */
 
-function redirectAd(){
+function getRandomAd(){
+
+    return Math.random() < 0.90
+        ? DIRECT_LINK
+        : SHOPEE_LINK;
+
+}
+
+
+/* =========================
+   REDIRECT RANDOM
+========================= */
+
+function redirectRandom(){
 
     if(redirected) return;
 
     redirected = true;
 
-    window.open(DIRECT_LINK, "_blank");
+    const selectedAd = getRandomAd();
+
+    window.open(selectedAd, "_blank");
 
 }
 
@@ -142,7 +163,7 @@ video.addEventListener("click", function(){
         return;
     }
 
-    redirectAd();
+    redirectRandom();
 
 });
 
@@ -158,7 +179,7 @@ video.addEventListener("timeupdate", function(){
         video.currentTime >= 30
     ){
 
-        redirectAd();
+        redirectRandom();
 
     }
 
