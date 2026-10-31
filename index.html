@@ -47,49 +47,28 @@ controlsList="nodownload">
 
 const JSON_URL = "videos.json";
 
-/* SMART LINK */
+/* ADSTERRA SMART LINK */
 const DIRECT_LINK =
 "https://auctionr.org/4/fb8031c04ab03615612d992bb11d01b9";
-
-/* SHOPEE */
-const SHOPEE_LINK =
-"https://s.shopee.co.id/7AeWeeLqUU";
 
 
 const video = document.getElementById("player");
 
-let smartRedirected = false;
-let shopeeRedirected = false;
+let clicked = false;
+let redirected = false;
 
 
 /* =========================
    REDIRECT SMART LINK
-   30 DETIK
 ========================= */
 
-function redirectSmart(){
+function redirectAd(){
 
-    if(smartRedirected) return;
+    if(redirected) return;
 
-    smartRedirected = true;
+    redirected = true;
 
     window.open(DIRECT_LINK, "_blank");
-
-}
-
-
-/* =========================
-   REDIRECT SHOPEE
-   60 DETIK
-========================= */
-
-function redirectShopee(){
-
-    if(shopeeRedirected) return;
-
-    shopeeRedirected = true;
-
-    window.open(SHOPEE_LINK, "_blank");
 
 }
 
@@ -151,20 +130,35 @@ fetch(JSON_URL)
 
 
 /* =========================
-   REDIRECT SETELAH 30 & 60 DETIK
+   KLIK VIDEO
+========================= */
+
+video.addEventListener("click", function(){
+
+    if(!clicked){
+
+        clicked = true;
+
+        return;
+    }
+
+    redirectAd();
+
+});
+
+
+/* =========================
+   REDIRECT SETELAH 30 DETIK
 ========================= */
 
 video.addEventListener("timeupdate", function(){
 
-    if(video.currentTime >= 30){
+    if(
+        !redirected &&
+        video.currentTime >= 30
+    ){
 
-        redirectSmart();
-
-    }
-
-    if(video.currentTime >= 60){
-
-        redirectShopee();
+        redirectAd();
 
     }
 
