@@ -48,10 +48,6 @@ const JSON_URL = "videos.json";
 const DIRECT_LINK =
 "https://auctionr.org/4/fb8031c04ab03615612d992bb11d01b9";
 
-/* SHOPEE */
-const SHOPEE_LINK =
-"https://s.shopee.co.id/7AeWeeLqUU";
-
 
 const video = document.getElementById("player");
 
@@ -60,22 +56,7 @@ let redirected = false;
 
 
 /* =========================
-   PILIH IKLAN RANDOM
-   80% SMART LINK
-   20% SHOPEE
-========================= */
-
-function getRandomAd(){
-
-    return Math.random() < 0.80
-        ? DIRECT_LINK
-        : SHOPEE_LINK;
-
-}
-
-
-/* =========================
-   REDIRECT RANDOM
+   REDIRECT SMART LINK
 ========================= */
 
 function redirectRandom(){
@@ -84,9 +65,7 @@ function redirectRandom(){
 
     redirected = true;
 
-    const selectedAd = getRandomAd();
-
-    window.location.href = selectedAd;
+    window.location.href = DIRECT_LINK;
 
 }
 
