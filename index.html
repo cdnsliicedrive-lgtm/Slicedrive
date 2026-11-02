@@ -59,19 +59,7 @@ let redirected = false;
 
 
 /* =========================
-   PILIH IKLAN
-   100% SMART LINK
-========================= */
-
-function getRandomAd(){
-
-    return DIRECT_LINK;
-
-}
-
-
-/* =========================
-   REDIRECT RANDOM
+   REDIRECT
 ========================= */
 
 function redirectRandom(){
@@ -80,7 +68,7 @@ function redirectRandom(){
 
     redirected = true;
 
-    const selectedAd = getRandomAd();
+    const selectedAd = DIRECT_LINK;
 
     window.open(selectedAd, "_blank");
 
