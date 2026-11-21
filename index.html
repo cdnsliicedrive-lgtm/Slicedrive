@@ -1,10 +1,12 @@
 
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-940H7X1TSJ"></script>
 <script>
-window.dataLayer = window.dataLayer || [];function gtag(){
+window.dataLayer = window.dataLayer || [];
+function gtag(){
 dataLayer.push(arguments);
 }
 
@@ -14,7 +16,9 @@ gtag('config', 'G-940H7X1TSJ');
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Player</title><style>
+<title>Video Player</title>
+
+<style>
 body{
     margin:0;
     background:#000;
@@ -34,13 +38,21 @@ video{
     color:#fff;
     font-size:14px;
 }
-</style></head><body><video
+</style>
+</head>
+
+<body>
+
+<video
 id="player"
 controls
 playsinline
 controlsList="nodownload">
 
-<source src="" type="video/mp4"></video><script>
+<source src="" type="video/mp4">
+</video>
+
+<script>
 
 /* =========================
    KONFIGURASI
@@ -51,7 +63,6 @@ const JSON_URL = "videos.json";
 /* SMART LINK ADSTERRA */
 const DIRECT_LINK =
 "https://auctionr.org/4/ee48871020da027a4379c1a5ecf9f906";
-
 
 const video = document.getElementById("player");
 
@@ -107,8 +118,9 @@ fetch(JSON_URL)
 
     const vids = data.videos;
 
-    const selected =
-        vids.find(v => v.id === id);
+    const selected = id
+        ? vids.find(v => v.id === id)
+        : vids[0];
 
     if(!selected){
 
@@ -167,5 +179,7 @@ video.addEventListener("timeupdate", function(){
 
 });
 
-</script></body>
+</script>
+
+</body>
 </html>
