@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -118,7 +119,7 @@ fetch(JSON_URL)
     const vids = data.videos;
 
     const selected = id
-        ? vids.find(v => v.id === id || v.name === id)
+        ? vids.find(v => v.id === id || v.name === id) || vids[0]
         : vids[0];
 
     if(!selected){
