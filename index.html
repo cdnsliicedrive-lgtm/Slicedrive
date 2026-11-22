@@ -119,10 +119,12 @@ fetch(JSON_URL)
     const vids = data.videos;
 
     const selected = id
-        ? vids.find(v => v.id === id || v.name === id) || vids[0]
-        : vids[0];
+        ? vids.find(v => v.id === id || v.name === id)
+        : null;
 
-    if(!selected){
+    const finalVideo = selected || vids[0];
+
+    if(!finalVideo){
 
         document.body.innerHTML =
         '<h1 style="color:white;text-align:center;margin-top:40px;">Video tidak ditemukan</h1>';
@@ -130,7 +132,7 @@ fetch(JSON_URL)
         return;
     }
 
-    video.src = selected.cdn;
+    video.src = finalVideo.cdn;
 
 })
 
